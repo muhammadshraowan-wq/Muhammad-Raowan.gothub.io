@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SHR Food Corner – Taste the Real Flavor</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--red:#e0260e;--red-dark:#b31d09;--orange:#f5820a;--yellow:#ffc93c;--cream:#fff9f0;--dark:#1a0c00;--grey:#5c4033;--light-grey:#f3ebe3;--white:#ffffff;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:68px;background:rgba(26,12,0,0.96);backdrop-filter:blur(10px);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--yellow);letter-spacing:1px;}
+.nav-logo span{color:var(--red);}
+.nav-links{display:flex;gap:1.6rem;list-style:none;}
+.nav-links a{color:#e0c9b0;text-decoration:none;font-size:0.88rem;font-weight:500;transition:color .2s;}
+.nav-links a:hover{color:var(--yellow);}
+.nav-cta{background:var(--red);color:#fff;border:none;border-radius:50px;padding:10px 22px;font-size:0.88rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s,transform .2s;}
+.nav-cta:hover{background:var(--orange);transform:scale(1.04);}
+
+/* HERO */
+#hero{min-height:100vh;background:linear-gradient(135deg,rgba(20,8,0,0.88) 0%,rgba(55,20,0,0.84) 55%,rgba(85,38,0,0.78) 100%),url('https://images.unsplash.com/photo-1550547660-d9450f859349?w=1800&auto=format&fit=crop') center/cover no-repeat;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:110px 6vw 70px;position:relative;overflow:hidden;}
+.hero-dots{position:absolute;inset:0;opacity:0.06;background-image:radial-gradient(circle,#f5820a 1.5px,transparent 1.5px);background-size:36px 36px;pointer-events:none;}
+.hero-badge{display:inline-block;background:rgba(245,130,10,0.14);border:1px solid rgba(245,130,10,0.45);color:var(--orange);border-radius:50px;padding:7px 20px;font-size:0.78rem;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;margin-bottom:1.6rem;animation:fadeUp .7s ease both;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1.05;color:var(--white);animation:fadeUp .8s .1s ease both;}
+.hero-title span{color:var(--yellow);display:block;}
+.hero-tagline{font-size:clamp(1rem,2.5vw,1.35rem);color:#ddc5a8;margin-top:1rem;font-style:italic;animation:fadeUp .8s .2s ease both;}
+.hero-stats{display:flex;gap:2.5rem;margin:2.8rem 0;animation:fadeUp .8s .3s ease both;align-items:center;}
+.stat{text-align:center;}
+.stat-num{font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:900;color:var(--yellow);}
+.stat-label{font-size:0.72rem;color:#c4a882;letter-spacing:1px;margin-top:3px;text-transform:uppercase;}
+.stat-div{width:1px;height:44px;background:rgba(255,255,255,0.15);}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;animation:fadeUp .8s .4s ease both;}
+.btn-primary{background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;border:none;border-radius:50px;padding:15px 38px;font-size:1rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 6px 24px rgba(224,38,14,.4);transition:transform .2s,box-shadow .2s;}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(224,38,14,.5);}
+.btn-secondary{background:transparent;color:var(--yellow);border:2px solid var(--yellow);border-radius:50px;padding:13px 32px;font-size:1rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s,color .2s;}
+.btn-secondary:hover{background:var(--yellow);color:var(--dark);}
+
+/* SECTION BASE */
+section{padding:90px 6vw;}
+.section-label{font-size:0.72rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:.5rem;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);font-weight:900;line-height:1.15;color:var(--dark);}
+.section-line{width:60px;height:4px;background:linear-gradient(90deg,var(--red),var(--orange));border-radius:2px;margin:1rem 0 2.5rem;}
+
+/* FEATURES */
+#features{background:linear-gradient(135deg,var(--red-dark),var(--red));padding:38px 6vw;}
+.features-grid{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;}
+.feature-chip{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:50px;padding:10px 22px;font-size:.88rem;font-weight:500;display:flex;align-items:center;gap:8px;}
+.feature-chip::before{content:'✓';font-weight:900;color:var(--yellow);}
+
+/* FOOD GALLERY */
+#gallery{padding:0;overflow:hidden;}
+.gallery-track{display:flex;height:260px;}
+.gallery-track .gimg{flex:1;min-width:0;background-size:cover;background-position:center;transition:flex .45s ease;cursor:pointer;}
+.gallery-track .gimg:hover{flex:2.8;}
+
+/* MENU */
+#menu{background:var(--white);}
+.menu-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+.tab-btn{padding:10px 22px;border-radius:50px;border:2px solid var(--light-grey);background:var(--cream);color:var(--grey);font-size:.88rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.tab-btn.active,.tab-btn:hover{background:var(--red);border-color:var(--red);color:#fff;}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.2rem;}
+.menu-card{background:var(--cream);border:1px solid #ecdfd3;border-radius:16px;padding:22px 20px;display:flex;align-items:center;justify-content:space-between;transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden;}
+.menu-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.08);}
+.menu-card.bestseller::after{content:'🔥 Best';position:absolute;top:10px;right:10px;background:var(--yellow);color:var(--dark);font-size:.7rem;font-weight:700;border-radius:20px;padding:3px 10px;}
+.menu-name{font-weight:600;font-size:1rem;color:var(--dark);}
+.menu-price{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:var(--red);}
+.menu-section{display:none;}
+.menu-section.active{display:block;}
+
+/* HOURS */
+#hours{background:linear-gradient(135deg,rgba(20,8,0,0.93) 0%,rgba(40,15,0,0.91) 100%),url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=1400&auto=format&fit=crop') center/cover no-repeat;}
+#hours .section-title{color:var(--white);}
+#hours .section-label{color:var(--orange);}
+.hours-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:520px;}
+.hour-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:24px;}
+.hour-day{color:var(--yellow);font-weight:700;font-size:.85rem;margin-bottom:6px;}
+.hour-time{color:#e0c9b0;font-size:1.05rem;font-weight:500;}
+
+/* BRANCHES */
+#branches{background:var(--cream);}
+.branches-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;}
+.branch-card{background:var(--white);border-radius:20px;padding:28px;box-shadow:0 4px 20px rgba(0,0,0,.07);border-top:4px solid var(--red);transition:transform .2s,box-shadow .2s;position:relative;}
+.branch-card:hover{transform:translateY(-4px);box-shadow:0 10px 32px rgba(0,0,0,.10);}
+.branch-card.hq{border-top-color:var(--orange);}
+.branch-hq-badge{position:absolute;top:14px;right:14px;background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;font-size:.7rem;font-weight:700;border-radius:20px;padding:4px 12px;letter-spacing:1px;}
+.branch-city{font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:6px;}
+.branch-card.hq .branch-city{color:var(--orange);}
+.branch-name{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:var(--dark);margin-bottom:8px;}
+.branch-address{color:var(--grey);font-size:.9rem;line-height:1.6;}
+
+/* DELIVERY */
+#delivery{background:var(--light-grey);}
+.delivery-areas{display:flex;flex-wrap:wrap;gap:1rem;margin-top:.5rem;}
+.area-pill{background:var(--white);border:2px solid var(--red);color:var(--red);border-radius:50px;padding:8px 22px;font-weight:600;font-size:.95rem;}
+.location-card{background:var(--white);border-radius:20px;padding:30px;max-width:480px;box-shadow:0 4px 20px rgba(0,0,0,.06);margin-top:2rem;}
+.location-row{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;}
+.location-icon{font-size:1.3rem;flex-shrink:0;margin-top:2px;}
+.location-text{font-size:.95rem;color:var(--grey);line-height:1.5;}
+.location-text strong{color:var(--dark);}
+
+/* REVIEWS */
+#reviews{background:linear-gradient(180deg,rgba(255,249,240,0.97),rgba(255,249,240,0.97)),url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1400&auto=format&fit=crop') center/cover fixed;}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;}
+.review-card{background:var(--white);border:1px solid #ecdfd3;border-radius:20px;padding:28px;transition:transform .2s;box-shadow:0 2px 12px rgba(0,0,0,.05);}
+.review-card:hover{transform:translateY(-3px);}
+.stars{color:var(--yellow);font-size:1.1rem;margin-bottom:10px;}
+.review-comment{color:var(--grey);font-size:.95rem;line-height:1.6;margin-bottom:16px;}
+.reviewer-name{font-weight:700;color:var(--dark);}
+.overall-rating{display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;border-radius:50px;padding:12px 28px;margin-bottom:2.5rem;}
+.rating-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;}
+.rating-info{font-size:.85rem;opacity:.9;}
+
+/* CONTACT */
+#contact{background:linear-gradient(135deg,rgba(20,8,0,0.95),rgba(50,18,0,0.95)),url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1400&auto=format&fit=crop') center/cover no-repeat;color:var(--white);}
+#contact .section-title{color:var(--white);}
+#contact .section-label{color:var(--orange);}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.2rem;margin-top:.5rem;}
+.contact-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);border-radius:16px;padding:22px;transition:background .2s;}
+.contact-card:hover{background:rgba(255,255,255,.14);}
+.contact-icon{font-size:1.8rem;margin-bottom:10px;}
+.contact-label{font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--orange);margin-bottom:4px;}
+.contact-value{color:#e0c9b0;font-size:.92rem;word-break:break-all;}
+.contact-value a{color:var(--yellow);text-decoration:none;}
+.contact-value a:hover{text-decoration:underline;}
+
+/* ABOUT */
+#about{background:var(--cream);}
+.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.about-text{color:var(--grey);font-size:1rem;line-height:1.8;}
+.about-owner{background:var(--white);border-radius:20px;padding:30px;box-shadow:0 4px 20px rgba(0,0,0,.06);border-left:4px solid var(--red);}
+.owner-label{font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:6px;}
+.owner-name{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:var(--dark);margin-bottom:4px;}
+.owner-est{color:var(--grey);font-size:.9rem;}
+
+/* FOOTER */
+footer{background:#0f0800;color:#9c7d60;text-align:center;padding:32px 6vw;font-size:.85rem;}
+.footer-brand{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:var(--yellow);margin-bottom:8px;}
+.social-links{display:flex;gap:1.2rem;justify-content:center;margin:12px 0;flex-wrap:wrap;}
+.social-links a{color:#c4a882;font-size:.88rem;text-decoration:none;transition:color .2s;}
+.social-links a:hover{color:var(--yellow);}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .hero-stats{gap:1.4rem;}
+  .about-inner{grid-template-columns:1fr;gap:2rem;}
+  .hours-grid{grid-template-columns:1fr;}
+  .gallery-track{height:160px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SHR <span>Food</span></div>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#branches">Branches</a></li>
+    <li><a href="#delivery">Delivery</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Order Now</button>
+</nav>
+
+<!-- HERO — burgers background -->
+<section id="hero">
+  <div class="hero-dots"></div>
+  <div class="hero-badge">🍔 Fast Food &amp; Cafe · Est. 2024</div>
+  <h1 class="hero-title">SHR Food <span>Corner</span></h1>
+  <p class="hero-tagline">"Taste the Real Flavor"</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">4.5★</div><div class="stat-label">Rating</div></div>
+    <div class="stat-div"></div>
+    <div class="stat"><div class="stat-num">85+</div><div class="stat-label">Reviews</div></div>
+    <div class="stat-div"></div>
+    <div class="stat"><div class="stat-num">4</div><div class="stat-label">Branches</div></div>
+  </div>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">🍽 View Menu</button>
+    <button class="btn-secondary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">📞 Call for Delivery</button>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="features-grid">
+    <div class="feature-chip">Home Delivery</div>
+    <div class="feature-chip">Takeaway Available</div>
+    <div class="feature-chip">Family Friendly পরিবেশ</div>
+    <div class="feature-chip">Clean &amp; Hygienic Food</div>
+    <div class="feature-chip">Fast Service</div>
+  </div>
+</section>
+
+<!-- FOOD PHOTO GALLERY STRIP -->
+<div id="gallery">
+  <div class="gallery-track">
+    <div class="gimg" style="background-image:url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&auto=format&fit=crop')"></div>
+    <div class="gimg" style="background-image:url('https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=800&auto=format&fit=crop')"></div>
+    <div class="gimg" style="background-image:url('https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=800&auto=format&fit=crop')"></div>
+    <div class="gimg" style="background-image:url('https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?w=800&auto=format&fit=crop')"></div>
+    <div class="gimg" style="background-image:url('https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=800&auto=format&fit=crop')"></div>
+  </div>
+</div>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="section-label">Our Menu</div>
+  <h2 class="section-title">Fresh &amp; Delicious Picks</h2>
+  <div class="section-line"></div>
+  <div class="menu-tabs">
+    <button class="tab-btn active" onclick="showTab('fast_food',this)">🍔 Fast Food</button>
+    <button class="tab-btn" onclick="showTab('snacks',this)">🍟 Snacks</button>
+    <button class="tab-btn" onclick="showTab('meals',this)">🍗 Meals</button>
+    <button class="tab-btn" onclick="showTab('drinks',this)">🥤 Drinks</button>
+  </div>
+  <div id="fast_food" class="menu-section active">
+    <div class="menu-grid">
+      <div class="menu-card"><span class="menu-name">Chicken Burger</span><span class="menu-price">৳150</span></div>
+      <div class="menu-card"><span class="menu-name">Beef Burger</span><span class="menu-price">৳180</span></div>
+      <div class="menu-card bestseller"><span class="menu-name">Zinger Burger</span><span class="menu-price">৳200</span></div>
+    </div>
+  </div>
+  <div id="snacks" class="menu-section">
+    <div class="menu-grid">
+      <div class="menu-card"><span class="menu-name">French Fries</span><span class="menu-price">৳100</span></div>
+      <div class="menu-card"><span class="menu-name">Chicken Nuggets</span><span class="menu-price">৳160</span></div>
+    </div>
+  </div>
+  <div id="meals" class="menu-section">
+    <div class="menu-grid">
+      <div class="menu-card bestseller"><span class="menu-name">Fried Chicken (4 pcs)</span><span class="menu-price">৳300</span></div>
+      <div class="menu-card bestseller"><span class="menu-name">Chicken Set Menu</span><span class="menu-price">৳250</span></div>
+    </div>
+  </div>
+  <div id="drinks" class="menu-section">
+    <div class="menu-grid">
+      <div class="menu-card"><span class="menu-name">Cold Drinks</span><span class="menu-price">৳50</span></div>
+      <div class="menu-card"><span class="menu-name">Cold Coffee</span><span class="menu-price">৳120</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS — grilled food background -->
+<section id="hours">
+  <div class="section-label">We're Open</div>
+  <h2 class="section-title">Opening Hours</h2>
+  <div class="section-line"></div>
+  <div class="hours-grid">
+    <div class="hour-card">
+      <div class="hour-day">Saturday – Thursday</div>
+      <div class="hour-time">11:00 AM – 11:00 PM</div>
+    </div>
+    <div class="hour-card">
+      <div class="hour-day">Friday</div>
+      <div class="hour-time">2:00 PM – 11:30 PM</div>
+    </div>
+  </div>
+</section>
+
+<!-- BRANCHES -->
+<section id="branches">
+  <div class="section-label">Our Locations</div>
+  <h2 class="section-title">Find Us Near You</h2>
+  <div class="section-line"></div>
+  <div class="branches-grid">
+    <div class="branch-card hq">
+      <div class="branch-hq-badge">⭐ Main Branch &amp; HQ</div>
+      <div class="branch-city">Chittagong</div>
+      <div class="branch-name">Chawkbazar Branch</div>
+      <div class="branch-address">📍 Chawkbazar, Chittagong<br>🎯 Near College Gate<br><br><em style="font-size:.82rem;color:#c47a3a">Head Office · Est. 2024</em></div>
+    </div>
+    <div class="branch-card">
+      <div class="branch-city">Chittagong</div>
+      <div class="branch-name">Agrabad Branch</div>
+      <div class="branch-address">📍 Agrabad, Chittagong<br>🎯 Commercial Area</div>
+    </div>
+    <div class="branch-card">
+      <div class="branch-city">Chittagong</div>
+      <div class="branch-name">Nasirabad Branch</div>
+      <div class="branch-address">📍 Nasirabad, Chittagong<br>🎯 Near Nasirabad School</div>
+    </div>
+    <div class="branch-card">
+      <div class="branch-city">Dhaka</div>
+      <div class="branch-name">Gazipur Branch</div>
+      <div class="branch-address">📍 Board Bazar, Gazipur, Dhaka<br>🎯 Near College Gate</div>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERY -->
+<section id="delivery">
+  <div class="section-label">Delivery</div>
+  <h2 class="section-title">We Deliver To</h2>
+  <div class="section-line"></div>
+  <div class="delivery-areas">
+    <div class="area-pill">📍 Chittagong City</div>
+    <div class="area-pill">📍 Chawkbazar</div>
+    <div class="area-pill">📍 Agrabad</div>
+    <div class="area-pill">📍 Gazipur</div>
+    <div class="area-pill">📍 Tongi</div>
+    <div class="area-pill">📍 Uttara</div>
+  </div>
+  <div class="location-card">
+    <div class="location-row">
+      <span class="location-icon">🏠</span>
+      <div class="location-text"><strong>Main Address:</strong><br>Chawkbazar, Chittagong</div>
+    </div>
+    <div class="location-row">
+      <span class="location-icon">🎯</span>
+      <div class="location-text"><strong>Landmark:</strong><br>Near College Gate</div>
+    </div>
+    <div class="location-row" style="margin-bottom:0">
+      <span class="location-icon">🛵</span>
+      <div class="location-text">Fast home delivery across all zones in Chittagong &amp; Dhaka.</div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS — restaurant ambiance background -->
+<section id="reviews">
+  <div class="section-label">What People Say</div>
+  <h2 class="section-title">Customer Reviews</h2>
+  <div class="section-line"></div>
+  <div class="overall-rating">
+    <span class="rating-num">4.5★</span>
+    <div class="rating-info">Based on 85+ reviews</div>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-comment">খুবই মজার খাবার! Highly recommended. The Zinger Burger is absolutely 🔥</p>
+      <div class="reviewer-name">— Sakib</div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★☆</div>
+      <p class="review-comment">Affordable price and fast delivery. Got my order in under 30 minutes!</p>
+      <div class="reviewer-name">— Nusrat</div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-comment">Best fried chicken in Chittagong! Chicken Set Menu is worth every taka. আমি বারবার আসব।</p>
+      <div class="reviewer-name">— Raihan</div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-comment">Hygiene is top-notch. Very clean, staff super friendly. Perfect family outing spot!</p>
+      <div class="reviewer-name">— Fariha</div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★☆</div>
+      <p class="review-comment">Cold Coffee is amazing! Perfect with Chicken Nuggets. Great evening combo.</p>
+      <div class="reviewer-name">— Arif</div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-comment">Visited the Chawkbazar branch — খুব সুন্দর পরিবেশ। Food was fresh and hot. Coming again!</p>
+      <div class="reviewer-name">— Mahbuba</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT — food spread background -->
+<section id="contact">
+  <div class="section-label">Get In Touch</div>
+  <h2 class="section-title">Contact Us</h2>
+  <div class="section-line" style="background:linear-gradient(90deg,var(--orange),var(--yellow));"></div>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="contact-icon">📞</div>
+      <div class="contact-label">Phone</div>
+      <div class="contact-value"><a href="tel:01859286741">01859286741</a></div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">💬</div>
+      <div class="contact-label">WhatsApp</div>
+      <div class="contact-value"><a href="https://wa.me/8801859286741" target="_blank">01859286741</a></div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">✉️</div>
+      <div class="contact-label">Email</div>
+      <div class="contact-value"><a href="mailto:muhammadshraowan@gmail.com">muhammadshraowan@gmail.com</a></div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">📘</div>
+      <div class="contact-label">Facebook</div>
+      <div class="contact-value"><a href="https://facebook.com/MuhammadRaowan" target="_blank">Muhammad Raowan</a></div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">📸</div>
+      <div class="contact-label">Instagram</div>
+      <div class="contact-value"><a href="https://instagram.com/mr.huda123" target="_blank">@mr.huda123</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">Our Story</div>
+  <h2 class="section-title">About SHR Food Corner</h2>
+  <div class="section-line"></div>
+  <div class="about-inner">
+    <p class="about-text">
+      SHR Food Corner is a modern fast food shop offering delicious, fresh, and hygienic খাবার at affordable prices. We focus on quality, taste, and quick service to make every customer happy.<br><br>
+      Every item on our menu is prepared with care using fresh ingredients to bring you the real flavor experience. From crispy burgers to hearty meals, there's something for everyone across our 4 branches.
+    </p>
+    <div class="about-owner">
+      <div class="owner-label">Owner</div>
+      <div class="owner-name">Muhammad Raowan</div>
+      <div class="owner-est">Founded in 2024 · Chawkbazar, Chittagong (HQ)</div>
+      <br>
+      <p style="color:#5c4033;font-size:.9rem;line-height:1.6">Committed to serving the community with quality food and a warm, family-friendly atmosphere across 4 branches.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">SHR Food Corner</div>
+  <p>Taste the Real Flavor · Chawkbazar, Chittagong (HQ) · 4 Branches</p>
+  <div class="social-links">
+    <a href="https://facebook.com/MuhammadRaowan" target="_blank">📘 Muhammad Raowan</a>
+    <a href="https://instagram.com/mr.huda123" target="_blank">📸 @mr.huda123</a>
+    <a href="https://wa.me/8801859286741" target="_blank">💬 WhatsApp</a>
+  </div>
+  <p style="margin-top:10px">© 2024 SHR Food Corner. All rights reserved.</p>
+</footer>
+
+<script>
+function showTab(id,btn){
+  document.querySelectorAll('.menu-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
